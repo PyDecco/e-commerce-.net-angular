@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Sensedia.API.Context;
+﻿using Infrastructure.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Core.Entities;
 
 namespace Sensedia.API.Controllers
 {
@@ -13,5 +15,21 @@ namespace Sensedia.API.Controllers
         {
             _sensediaContext = sensediaContext;
         }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Product>>> GetProducts()
+        {
+            var products = await _sensediaContext.Products.ToListAsync();
+
+            return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Product>> GetProduct(int id)
+        {
+            return await _sensediaContext.Products.FindAsync(id);
+        }
+
+       
     }
 }

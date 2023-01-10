@@ -1,4 +1,4 @@
-﻿namespace Sensedia.API.Entities
+﻿namespace Core.Entities
 {
     public class Product
     {

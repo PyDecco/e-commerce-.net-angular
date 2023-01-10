@@ -4,11 +4,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Sensedia.API.Context;
 
 #nullable disable
 
-namespace Sensedia.API.Migrations
+namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(SensediaContext))]
     [Migration("20230109121113_initial")]

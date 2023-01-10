@@ -1,9 +1,8 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using Sensedia.API.Entities;
+using Core.Entities;
 
-namespace Sensedia.API.Context
+namespace Infrastructure.Data
 {
     public class SensediaContext : DbContext
     {

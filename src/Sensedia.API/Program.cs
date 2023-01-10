@@ -1,5 +1,5 @@
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore; //ORM Database (Relational, noSQL)
-using Sensedia.API.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 

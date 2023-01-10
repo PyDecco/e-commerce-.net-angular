@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Sensedia.API.Migrations
+namespace Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
     public partial class initial : Migration

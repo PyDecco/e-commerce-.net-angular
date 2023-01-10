@@ -5,6 +5,10 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sensedia.API", "Sensedia.API\Sensedia.API.csproj", "{8679A0C8-1948-49BE-AB78-4FBF0C93FC60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{F62C16DF-AFE8-483B-B9EC-3F5041CF1866}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{C4808936-D2C2-4913-B215-D03939BFFB19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{8679A0C8-1948-49BE-AB78-4FBF0C93FC60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8679A0C8-1948-49BE-AB78-4FBF0C93FC60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8679A0C8-1948-49BE-AB78-4FBF0C93FC60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F62C16DF-AFE8-483B-B9EC-3F5041CF1866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F62C16DF-AFE8-483B-B9EC-3F5041CF1866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F62C16DF-AFE8-483B-B9EC-3F5041CF1866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F62C16DF-AFE8-483B-B9EC-3F5041CF1866}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4808936-D2C2-4913-B215-D03939BFFB19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4808936-D2C2-4913-B215-D03939BFFB19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4808936-D2C2-4913-B215-D03939BFFB19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4808936-D2C2-4913-B215-D03939BFFB19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Core.Entities;
+using Core.Interfaces;
 
 namespace Sensedia.API.Controllers
 {
@@ -9,17 +10,18 @@ namespace Sensedia.API.Controllers
     [Route("[controller]")]
     public class ProductsController: ControllerBase
     {
-        private readonly SensediaContext _sensediaContext;
+        private readonly IProductRepository _repo;
 
-        public ProductsController(SensediaContext sensediaContext)
+        public ProductsController(IProductRepository repo)
         {
-            _sensediaContext = sensediaContext;
+            _repo = repo;
+            
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts()
         {
-            var products = await _sensediaContext.Products.ToListAsync();
+            var products = await _repo.GetProductsAsync(); 
 
             return Ok(products);
         }
@@ -27,7 +29,7 @@ namespace Sensedia.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            return await _sensediaContext.Products.FindAsync(id);
+            return await _repo.GetProductByIdAsync(id);
         }
 
        

@@ -1,3 +1,4 @@
+using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore; //ORM Database (Relational, noSQL)
 
@@ -11,6 +12,7 @@ var connectionString = builder.Configuration.GetConnectionString("SensediaLocalS
 builder.Services.AddDbContext<SensediaContext>(x => x.UseSqlServer(connectionString));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

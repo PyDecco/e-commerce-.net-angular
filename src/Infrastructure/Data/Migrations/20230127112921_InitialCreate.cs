@@ -37,13 +37,13 @@ namespace Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "Produtos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(180)", maxLength: 180, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductTypeId = table.Column<int>(type: "int", nullable: false),
@@ -51,15 +51,15 @@ namespace Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Produtos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_ProductBrands_ProductBrandId",
+                        name: "FK_Produtos_ProductBrands_ProductBrandId",
                         column: x => x.ProductBrandId,
                         principalTable: "ProductBrands",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Products_ProductType_ProductTypeId",
+                        name: "FK_Produtos_ProductType_ProductTypeId",
                         column: x => x.ProductTypeId,
                         principalTable: "ProductType",
                         principalColumn: "Id",
@@ -67,13 +67,13 @@ namespace Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_ProductBrandId",
-                table: "Products",
+                name: "IX_Produtos_ProductBrandId",
+                table: "Produtos",
                 column: "ProductBrandId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_ProductTypeId",
-                table: "Products",
+                name: "IX_Produtos_ProductTypeId",
+                table: "Produtos",
                 column: "ProductTypeId");
         }
 
@@ -81,7 +81,7 @@ namespace Infrastructure.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Produtos");
 
             migrationBuilder.DropTable(
                 name: "ProductBrands");

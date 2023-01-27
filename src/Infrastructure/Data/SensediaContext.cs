@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Core.Entities;
+using System.Reflection;
 
 namespace Infrastructure.Data
 {
@@ -13,6 +13,12 @@ namespace Infrastructure.Data
         public SensediaContext(DbContextOptions<SensediaContext> options) : base(options)
         {
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) 
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());    
         }
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(SensediaContext))]
-    [Migration("20230122162701_InitialCreate")]
+    [Migration("20230127112921_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -34,11 +34,13 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(180)
+                        .HasColumnType("nvarchar(180)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PictureUrl")
                         .IsRequired()
@@ -59,7 +61,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("ProductTypeId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Produtos", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.ProductBrand", b =>

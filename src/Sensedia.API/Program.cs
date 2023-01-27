@@ -6,13 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
-var connectionString = builder.Configuration.GetConnectionString("SensediaLocalSqlServer");
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
-builder.Services.AddDbContext<SensediaContext>(x => x.UseSqlServer(connectionString));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddControllers();
+var connectionString = builder.Configuration.GetConnectionString("SensediaLocalSqlServer");
+builder.Services.AddDbContext<SensediaContext>(x => x.UseSqlServer(connectionString));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

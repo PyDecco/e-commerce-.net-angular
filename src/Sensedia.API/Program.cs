@@ -1,6 +1,8 @@
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore; //ORM Database (Relational, noSQL)
+using Sensedia.Infrastructure.Factory;
+//using Sensedia.Infrastructure.Factory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,5 +45,17 @@ using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 var context = services.GetRequiredService<SensediaContext>();
 await context.Database.MigrateAsync();
+var logger = services.GetRequiredService<ILogger<Program>>();
+var logger2 = services.GetRequiredService<ILoggerFactory>();
+await BuildFactoryFake.BuildFactoryAsync(context, logger2);
+try
+{
+    await context.Database.MigrateAsync();
+    await StoreContextSeed.SeedAsync(context);
+}
+catch (Exception ex)
+{
+    logger.LogError(ex, "An error orccured during migration");
+}
 
 app.Run();

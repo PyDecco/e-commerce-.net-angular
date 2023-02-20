@@ -58,7 +58,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("ProductTypeId");
 
-                    b.ToTable("Produtos", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Core.Entities.ProductBrand", b =>

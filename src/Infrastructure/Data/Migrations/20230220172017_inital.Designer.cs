@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(SensediaContext))]
-    [Migration("20230127112921_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230220172017_inital")]
+    partial class inital
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,7 +61,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("ProductTypeId");
 
-                    b.ToTable("Produtos", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Core.Entities.ProductBrand", b =>

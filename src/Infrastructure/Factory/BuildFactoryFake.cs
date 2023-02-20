@@ -1,5 +1,4 @@
 ﻿using Bogus;
-using Bogus.Extensions.Brazil;
 using Core.Entities;
 using Infrastructure.Data;
 using Microsoft.Extensions.Logging;
@@ -13,10 +12,10 @@ namespace Sensedia.Infrastructure.Factory
         private static List<Product> fakerProductList = new List<Product>();
         private static List<ProductBrand> fakerProductBrandList = new List<ProductBrand>();
         private static List<ProductType> fakerProductTypeList = new List<ProductType>();
-        private const string PATH_SEED = @"../Sensedia.Infrastructure/Seed/DataFaker";
-        private static string FILE_JSON_PRODUCT = $@"{PATH_SEED}/Products.json";
-        private static string FILE_JSON_PRODUCT_BRANDS = $@"{PATH_SEED}/ProductBrands.json";
-        private static string FILE_JSON_PRODUCT_TYPE = $@"{PATH_SEED}/ProductTypes.json";
+        private const string PATH_SEED = @"../Infrastructure/Data/SeedData";
+        private static string FILE_JSON_PRODUCT = $@"{PATH_SEED}/{nameof(Product)}.json";
+        private static string FILE_JSON_PRODUCT_BRANDS = $@"{PATH_SEED}/{nameof(ProductBrand)}.json";
+        private static string FILE_JSON_PRODUCT_TYPE = $@"{PATH_SEED}/{nameof(ProductType)}.json";
 
 
         public static async Task BuildFactoryAsync(SensediaContext context, ILoggerFactory loggerFactory)
@@ -29,9 +28,9 @@ namespace Sensedia.Infrastructure.Factory
                 }
 
 
-                await GenerateBuildFactoryProductBrand(context,loggerFactory);
-                await GenerateBuildFactoryProductType(context,loggerFactory);
-                await GenerateBuildFactoryProduct(context,loggerFactory);
+                await GenerateBuildFactoryProductBrand(context, loggerFactory);
+                await GenerateBuildFactoryProductType(context, loggerFactory);
+                await GenerateBuildFactoryProduct(context, loggerFactory);
 
             }
             catch (System.Exception ex)
@@ -41,7 +40,7 @@ namespace Sensedia.Infrastructure.Factory
             }
         }
 
-        private async static Task GenerateBuildFactoryProductBrand(SensediaContext context, ILoggerFactory loggerFactory)
+        public async static Task GenerateBuildFactoryProductBrand(SensediaContext context, ILoggerFactory loggerFactory)
         {
             Task.Run(() =>
             {
@@ -66,7 +65,7 @@ namespace Sensedia.Infrastructure.Factory
 
                         using var file = File.CreateText(FILE_JSON_PRODUCT_BRANDS);
                         var serializer = new JsonSerializer();
-                            serializer.Serialize(file, fakerProductBrandList);
+                        serializer.Serialize(file, fakerProductBrandList);
 
 
                     }
@@ -82,7 +81,7 @@ namespace Sensedia.Infrastructure.Factory
         }
 
 
-        private async static Task GenerateBuildFactoryProductType(SensediaContext context, ILoggerFactory loggerFactory)
+        public async static Task GenerateBuildFactoryProductType(SensediaContext context, ILoggerFactory loggerFactory)
         {
             Task.Run(() =>
             {
@@ -122,11 +121,11 @@ namespace Sensedia.Infrastructure.Factory
             }).Wait();
         }
 
-        private async static Task GenerateBuildFactoryProduct(SensediaContext context, ILoggerFactory loggerFactory)
+        public async static Task GenerateBuildFactoryProduct(SensediaContext context, ILoggerFactory loggerFactory)
         {
             Task.Run(() =>
             {
-                
+
                 try
                 {
                     if (!context.Products.Any())
@@ -137,15 +136,22 @@ namespace Sensedia.Infrastructure.Factory
                             File.Delete(FILE_JSON_PRODUCT);
                         }
                         Randomizer.Seed = new Random(2675309);
-
+                        var idsProductBrand = context.ProductBrands.Select(x => new
+                        {
+                            x.Id
+                        }).Cast<int>().ToList();
+                        var idsProductType = context.ProductTypes.Select(x => new
+                        {
+                            x.Id
+                        }).Cast<int>().ToList();
                         var productIds = 1;
                         var productList = new Faker<Product>("pt_BR")
                             .RuleFor(p => p.Name, p => p.Commerce.Product())
                             .RuleFor(p => p.Description, p => $"{p.Commerce.ProductName()} {p.Commerce.Ean8()}")
                             .RuleFor(p => p.Price, p => p.Random.Decimal(10, 150))
                             .RuleFor(p => p.PictureUrl, p => p.Image.LoremFlickrUrl())
-                            .RuleFor(p => p.ProductBrandId, p => new Random().Next(1, context.ProductBrands.Count()))
-                            .RuleFor(p => p.ProductTypeId, p => new Random().Next(1, context.ProductTypes.Count()))
+                            .RuleFor(p => p.ProductBrandId, p => idsProductBrand[new Random().Next(idsProductBrand.Count())])
+                            .RuleFor(p => p.ProductTypeId, p => idsProductType[new Random().Next(idsProductType.Count())])
                             .Generate(100);
 
 

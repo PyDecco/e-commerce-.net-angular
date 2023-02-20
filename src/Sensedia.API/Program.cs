@@ -47,11 +47,10 @@ var context = services.GetRequiredService<SensediaContext>();
 await context.Database.MigrateAsync();
 var logger = services.GetRequiredService<ILogger<Program>>();
 var logger2 = services.GetRequiredService<ILoggerFactory>();
-await BuildFactoryFake.BuildFactoryAsync(context, logger2);
 try
 {
     await context.Database.MigrateAsync();
-    await StoreContextSeed.SeedAsync(context);
+    await StoreContextSeed.SeedAsync(context, logger2);
 }
 catch (Exception ex)
 {

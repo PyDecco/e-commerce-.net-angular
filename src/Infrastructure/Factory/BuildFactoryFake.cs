@@ -26,12 +26,6 @@ namespace Sensedia.Infrastructure.Factory
                 {
                     Directory.CreateDirectory(PATH_SEED);
                 }
-
-
-                await GenerateBuildFactoryProductBrand(context, loggerFactory);
-                await GenerateBuildFactoryProductType(context, loggerFactory);
-                await GenerateBuildFactoryProduct(context, loggerFactory);
-
             }
             catch (System.Exception ex)
             {
@@ -136,14 +130,8 @@ namespace Sensedia.Infrastructure.Factory
                             File.Delete(FILE_JSON_PRODUCT);
                         }
                         Randomizer.Seed = new Random(2675309);
-                        var idsProductBrand = context.ProductBrands.Select(x => new
-                        {
-                            x.Id
-                        }).Cast<int>().ToList();
-                        var idsProductType = context.ProductTypes.Select(x => new
-                        {
-                            x.Id
-                        }).Cast<int>().ToList();
+                        var idsProductBrand = context.ProductBrands.Select(x => x.Id).ToArray();
+                        var idsProductType = context.ProductTypes.Select(x => x.Id).ToArray();
                         var productIds = 1;
                         var productList = new Faker<Product>("pt_BR")
                             .RuleFor(p => p.Name, p => p.Commerce.Product())

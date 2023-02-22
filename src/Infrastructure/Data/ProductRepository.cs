@@ -1,11 +1,6 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
@@ -13,19 +8,39 @@ namespace Infrastructure.Data
     {
         private readonly SensediaContext _context;
 
-        public ProductRepository(SensediaContext context) 
+        public ProductRepository(SensediaContext context)
         {
             _context = context;
 
-        }  
-        public async Task<Product> GetProductByIdAsync(int id)
+        }
+        public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
-           return await _context.Products.FindAsync(id);   
+            return await _context.Products
+                .Include(prop => prop.ProductType)
+                .Include(prop => prop.ProductBrand)
+                .ToListAsync();
         }
 
-        public async Task<List<Product>> GetProductsAsync()
+        public async Task<Product> GetProductByIdAsync(int id)
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+               .Include(prop => prop.ProductType)
+               .Include(prop => prop.ProductBrand)
+               .FirstOrDefaultAsync(prop => prop.Id == id);
+
         }
+
+        public async Task<IReadOnlyList<ProductType>> GetProductTypeAsync()
+        {
+            return await _context.ProductTypes.ToListAsync();
+        }
+
+        public async Task<IReadOnlyList<ProductBrand>> GetProductBrandAsync()
+        {
+            return await _context.ProductBrands.ToListAsync();
+        }
+
+
+
     }
 }

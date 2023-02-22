@@ -9,6 +9,7 @@ namespace Infrastructure.Data
     {
         public static async Task SeedAsync(SensediaContext context, ILoggerFactory loggerFactory)
         {
+            await BuildFactoryFake.BuildFactoryAsync(context, loggerFactory);
             await SeedContext(context, loggerFactory);
         }
 

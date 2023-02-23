@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Specifications;
 
 namespace Sensedia.API.Controllers
 {
@@ -26,7 +27,9 @@ namespace Sensedia.API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts()
         {
-            var products = await _productsRepo.ListAllAsync(); 
+            var spec = new ProductWithTypesAndBrandsSpecification();
+
+            var products = await _productsRepo.ListAsync(spec); 
 
             return Ok(products);
         }

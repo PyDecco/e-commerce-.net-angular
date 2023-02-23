@@ -9,6 +9,10 @@ namespace Core.Specifications
 {
     public class BaseSpecification<T> : ISpecification<T>
     {
+        public BaseSpecification() // Poruqe essa classe tem 2 constructor, e necessita desse para o ProductWithTypesAndBrandsSpecification funcionar
+        { 
+        
+        }
         public BaseSpecification(Expression<Func<T, bool>> criteria)
         {
             Criteria= criteria;
@@ -18,10 +22,10 @@ namespace Core.Specifications
         public Expression<Func<T, bool>> Criteria { get; }
 
         public List<Expression<Func<T, object>>> Includes { get; } = new List<Expression<Func<T, object>>>();
-
+        
         protected void AddInclude(Expression<Func<T, object>> IncludesExpression)
         {
-            Includes.Add(IncludesExpression);   
+            Includes.Add(IncludesExpression);
         }
     }
 }

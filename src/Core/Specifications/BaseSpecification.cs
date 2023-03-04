@@ -9,7 +9,7 @@ namespace Core.Specifications
 {
     public class BaseSpecification<T> : ISpecification<T>
     {
-        public BaseSpecification() // Poruqe essa classe tem 2 constructor, e necessita desse para o ProductWithTypesAndBrandsSpecification funcionar
+        public BaseSpecification()
         { 
         
         }
